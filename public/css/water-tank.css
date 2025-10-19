@@ -1,0 +1,159 @@
+.water-tank {
+    position: relative;
+    width: 200px;
+    height: 300px;
+    margin: 20px auto;
+    border: 8px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.water-level {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(180deg, #2196f3 0%, #1976d2 100%);
+    transition: height 1s ease-in-out;
+}
+
+.water-wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    animation: wave 3s linear infinite;
+    transform-origin: 0 0;
+}
+
+.tank-markers {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 0;
+    color: #666;
+    font-size: 12px;
+}
+
+.tank-marker {
+    position: relative;
+    width: 30px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tank-marker::after {
+    content: attr(data-level);
+    position: absolute;
+    right: 0;
+    top: -10px;
+}
+
+.tank-info {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.sensor-readings {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sensor-reading {
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    background: #f8f9fa;
+}
+
+.sensor-reading.warning {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.sensor-reading.danger {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.sensor-value {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.sensor-label {
+    font-size: 14px;
+    color: #666;
+}
+
+@keyframes wave {
+    0% {
+        transform: translateX(0) scaleY(1);
+    }
+    50% {
+        transform: translateX(-25%) scaleY(0.8);
+    }
+    100% {
+        transform: translateX(-50%) scaleY(1);
+    }
+}
+
+.tank-status {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+.status-indicator.online {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-indicator.offline {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.status-indicator i {
+    font-size: 12px;
+}
+
+.boia-indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    right: -20px;
+    transform: translateY(-50%);
+}
+
+.boia-active {
+    background: #28a745;
+}
+
+.boia-inactive {
+    background: #dc3545;
+}

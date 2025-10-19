@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema de Monitoramento</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/data-display.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+        window.serverPort = window.location.port || '3000';
+    </script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Unidades</h2>
+                <button id="addUnitBtn" class="btn-primary" style="display: none;">+ Adicionar</button>
+            </div>
+            <div id="unitsList" class="units-list">
+                <!-- Unidades serão carregadas aqui -->
+            </div>
+            <div class="sidebar-footer">
+                <span id="username"></span>
+                <button id="logoutBtn" class="btn-secondary">Sair</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <h1 id="currentUnit">Selecione uma unidade</h1>
+            </header>
+
+            <div id="noSelection" class="center-message">
+                <h2>👈 Selecione uma unidade para visualizar os dados</h2>
+            </div>
+
+            <div id="tankContent" class="tank-content" style="display: none;">
+                <!-- Grid de tanques -->
+                <div id="tanksGrid" class="tanks-grid">
+                    <!-- Tanques serão carregados aqui -->
+                </div>
+
+                <!-- Gráficos -->
+                <div class="charts-container">
+                    <div class="chart-box">
+                        <h3>Histórico de Nível</h3>
+                        <canvas id="levelChart"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>Histórico de Temperatura</h3>
+                        <canvas id="tempChart"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>Vibrações por Dia</h3>
+                        <canvas id="vibChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para adicionar unidade -->
+    <div id="addUnitModal" class="modal">
+        <div class="modal-content">
+            <h2>Adicionar Nova Unidade</h2>
+            <form id="addUnitForm">
+                <div class="form-group">
+                    <label for="unitName">Nome da Unidade</label>
+                    <input type="text" id="unitName" required placeholder="Ex: THE ONE CAIXAS">
+                </div>
+                <div class="form-group">
+                    <label for="unitLocation">Localização (Condomínio)</label>
+                    <input type="text" id="unitLocation" required placeholder="Ex: THE ONE">
+                </div>
+                <div class="form-group">
+                    <label for="unitType">Tipo</label>
+                    <select id="unitType" required>
+                        <option value="">Selecione o tipo</option>
+                        <option value="CAIXA">Caixa d'água</option>
+                        <option value="CISTERNA">Cisterna</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="unitSensors">Número de Sensores</label>
+                    <input type="number" id="unitSensors" required min="1" value="4">
+                </div>
+                <div class="form-group">
+                    <label for="unitDescription">Descrição</label>
+                    <textarea id="unitDescription" placeholder="Descrição opcional"></textarea>
+                </div>
+                <div class="modal-buttons">
+                    <button type="submit" class="btn-primary">Salvar</button>
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/simple-dashboard.js"></script>
+</body>
+</html>
